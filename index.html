@@ -139,7 +139,9 @@
     display:grid;place-items:center;color:var(--crimson);font-style:normal;font-size:.8rem;
   }
 
-  .text{padding:22px 20px 0;text-align:left;font-size:.95rem}
+  .split{display:grid;gap:22px;text-align:left}
+  .split-fig img{border-radius:18px;box-shadow:0 8px 24px rgba(180,100,110,.18)}
+  .body-text{margin-top:22px;text-align:left;font-size:.95rem}
   .notes{display:grid;gap:12px;margin-top:20px}
   .note{font-size:.92rem}
   .note b{color:var(--crimson);font-weight:700}
@@ -225,35 +227,49 @@
   /* PC: 画面幅いっぱいに使うレイアウト */
   @media (min-width:960px){
     body{font-size:17px}
-    .wrap{max-width:1080px;padding-bottom:120px}
-    .intro{padding:56px 48px 8px}
-    .intro h1{font-size:2.5rem}
-    .lead{max-width:720px;margin:0 auto;text-align:center}
-    .chips{gap:14px;margin-top:30px}
-    .chip{font-size:1rem;padding:12px 24px}
-    .cta{padding-top:38px}
-    .btn{font-size:1.2rem;padding:20px 56px}
-    .sec{padding:80px 56px 8px}
-    h2{font-size:2rem;margin:26px 0 30px}
-    .badge{font-size:1.1rem;padding:10px 34px}
-    .checks,.pills,.quotes,.steps{max-width:900px;margin-left:auto;margin-right:auto;gap:18px}
-    .quote{padding:24px 36px}
-    .sec > .card{max-width:780px;margin:0 auto;padding:30px 40px}
-    .overview div{display:grid;grid-template-columns:140px 1fr;gap:20px;align-items:baseline}
-    .overview dt{margin-bottom:0}
-    .step{padding:30px 22px}
-    .text{max-width:780px;margin-left:auto;margin-right:auto;padding-top:34px}
-    .notes{grid-template-columns:1fr 1fr;gap:18px}
-    .figure{max-width:620px;margin:0 auto;padding-top:34px}
-    .voice-text{margin-top:24px}
-    .qr-area{max-width:520px;margin:44px auto 0}
-    .card.about{max-width:900px;display:grid;grid-template-columns:5fr 6fr;align-items:center;gap:8px;padding:22px}
+    /* 画面幅いっぱい：外枠の白い箱をなくし、ヒーローは全幅、中身は広めの中央寄せ */
+    .wrap{max-width:none;background:transparent;box-shadow:none;padding-bottom:60px}
+    .hero img{width:100%}
+    .intro,.cta,.sec,.qr-area,.qr-note,footer{max-width:1240px;margin-left:auto;margin-right:auto}
+    .intro{padding:64px 48px 8px}
+    .intro h1{font-size:2.9rem}
+    .lead{max-width:860px;margin:0 auto;text-align:center;font-size:1.05rem}
+    .chips{gap:16px;margin-top:34px}
+    .chip{font-size:1.05rem;padding:13px 28px}
+    .cta{padding-top:42px}
+    .btn{font-size:1.25rem;padding:22px 64px}
+    .sec{padding:96px 48px 8px}
+    h2{font-size:2.2rem;margin:28px 0 36px}
+    .badge{font-size:1.15rem;padding:11px 38px}
+    .checks{grid-template-columns:1fr 1fr;gap:20px}
+    .check{padding:24px 26px;font-size:1.05rem}
+    .quotes{grid-template-columns:1fr;gap:20px;align-content:start}
+    .quote{padding:26px 40px;font-size:1.05rem}
+    .step{padding:34px 26px}
+    .step h3{font-size:1.1rem}
+    .step p{font-size:.95rem}
+    .steps{gap:24px}
+    .pills{grid-template-columns:1fr;gap:16px}
+    .pill{padding:18px 26px;font-size:1.05rem}
+    /* 左：文章／右：画像 の2カラム */
+    .split{grid-template-columns:1.15fr 1fr;gap:56px;align-items:start}
+    .voice-split{grid-template-columns:1fr 1fr}
+    .split-fig{position:sticky;top:24px}
+    .body-text{font-size:1.02rem}
+    .note{font-size:1rem}
+    .voice-text{margin-top:34px;font-size:1rem}
+    .sec > .card{max-width:1000px;margin:0 auto;padding:36px 52px}
+    .overview div{display:grid;grid-template-columns:160px 1fr;gap:24px;align-items:baseline}
+    .overview dt{margin-bottom:0;font-size:1.02rem}
+    .overview dd{font-size:1.02rem}
+    .card.about{max-width:1100px;display:grid;grid-template-columns:5fr 6fr;align-items:center;gap:16px;padding:28px}
     .about-img{padding:0}
-    .about-body{padding:12px 18px 12px 12px}
-    .sticky-in{max-width:1080px;justify-content:center;gap:28px}
-    .sticky-info{font-size:.9rem}
-    .sticky-info b{display:inline;margin-left:10px;font-size:1rem}
-    .sticky .btn{flex:none;min-width:320px}
+    .about-body{padding:12px 24px 12px 16px;font-size:1.02rem}
+    .qr-area{max-width:440px;margin-top:48px}
+    .qr-note{margin-top:16px;font-size:.95rem}
+    footer{padding-top:64px;font-size:.95rem}
+    /* PCでは下の固定ボタンは出さない（ページ内にボタンがあるため） */
+    .sticky{display:none}
   }
 </style>
 </head>
@@ -297,38 +313,44 @@
   <section class="sec">
     <span class="badge">こんなことができる！</span>
     <h2>AIで申込フォーム＆<br>自動返信メールをつくろう</h2>
-    <div class="pills">
-      <div class="pill"><i>✓</i>申込フォームをAIで作成</div>
-      <div class="pill"><i>✓</i>必要事項を入れるだけ</div>
-      <div class="pill"><i>✓</i>自動返信メールまで設定</div>
-      <div class="pill"><i>✓</i>初心者さんでも大丈夫</div>
+    <div class="split">
+      <div class="split-main">
+        <div class="pills">
+          <div class="pill"><i>✓</i>申込フォームをAIで作成</div>
+          <div class="pill"><i>✓</i>必要事項を入れるだけ</div>
+          <div class="pill"><i>✓</i>自動返信メールまで設定</div>
+          <div class="pill"><i>✓</i>初心者さんでも大丈夫</div>
+        </div>
+        <p class="body-text">当日は ChatGPT を使いながら、ご自身の講座・セッションに合わせた申込フォームを作成し、 申込みが入ったら自動で届く返信メールの設定まで進めます。 画面を見ながら一緒に手を動かすので、つまずいたところはその場で聞けます。</p>
+        <div class="notes">
+          <div class="card note"><b>安心のセキュリティ設計：</b> お支払い先の銀行口座など、大切な情報はAIに直接渡さない作り方で進めます。 AIに任せる部分と自分で扱う部分を分けるので、初めての方も安心して取り組めます。</div>
+          <div class="card note"><b>ChatGPTについて：</b> ChatGPTは無料版でも大丈夫です。作り方は当日ご案内します。有料版だと、さらにかんたんに作れます。</div>
+        </div>
+      </div>
+      <figure class="split-fig">
+        <img src="images/features.webp" alt="こんなことができる！ AIで申込フォーム＆自動返信メールをつくろう。申込フォームをAIで作成／必要事項を入れるだけ／自動返信メールまで設定／初心者さんでも大丈夫" loading="lazy" width="1122" height="1402">
+        <figcaption class="caption">Instagramでご紹介している案内画像です</figcaption>
+      </figure>
     </div>
   </section>
-
-  <p class="text">当日は ChatGPT を使いながら、ご自身の講座・セッションに合わせた申込フォームを作成し、 申込みが入ったら自動で届く返信メールの設定まで進めます。 画面を見ながら一緒に手を動かすので、つまずいたところはその場で聞けます。</p>
-  <div class="text notes" style="padding-top:0">
-    <div class="card note"><b>安心のセキュリティ設計：</b> お支払い先の銀行口座など、大切な情報はAIに直接渡さない作り方で進めます。 AIに任せる部分と自分で扱う部分を分けるので、初めての方も安心して取り組めます。</div>
-    <div class="card note"><b>ChatGPTについて：</b> ChatGPTは無料版でも大丈夫です。作り方は当日ご案内します。有料版だと、さらにかんたんに作れます。</div>
-  </div>
-  <div class="figure">
-    <img src="images/features.webp" alt="こんなことができる！ AIで申込フォーム＆自動返信メールをつくろう。申込フォームをAIで作成／必要事項を入れるだけ／自動返信メールまで設定／初心者さんでも大丈夫" loading="lazy" width="1122" height="1402">
-  </div>
 
   <section class="sec">
     <span class="badge">前回参加者さんの声</span>
     <h2>実際にこんな声を<br>いただきました</h2>
-    <div class="quotes">
-      <p class="quote">最初は戸惑ったけど、さなえさんとAIが何度も助けてくれました</p>
-      <p class="quote">おかげですごいのできた</p>
-      <p class="quote">一人だったら出来なかった</p>
-      <p class="quote">返信用習うの楽しみです</p>
+    <div class="split voice-split">
+      <div class="quotes">
+        <p class="quote">最初は戸惑ったけど、さなえさんとAIが何度も助けてくれました</p>
+        <p class="quote">おかげですごいのできた</p>
+        <p class="quote">一人だったら出来なかった</p>
+        <p class="quote">返信用習うの楽しみです</p>
+      </div>
+      <figure class="split-fig">
+        <img src="images/voice.webp" alt="前回参加者さんの声。講座の様子と、作ったフォームから実際にお申込み。実際にお申込み多数！" loading="lazy" width="1122" height="1402">
+        <figcaption class="caption">前回の講座の様子と、作ったフォームから実際に届いたお申込み</figcaption>
+      </figure>
     </div>
+    <p class="voice-text">前回は、参加者さんが作ったフォームから実際にお申込みが多数届きました。</p>
   </section>
-  <div class="figure">
-    <img src="images/voice.webp" alt="前回参加者さんの声。講座の様子と、作ったフォームから実際にお申込み。実際にお申込み多数！" loading="lazy" width="1122" height="1402">
-    <p class="caption">前回の講座の様子と、作ったフォームから実際に届いたお申込み</p>
-  </div>
-  <p class="voice-text">前回は、参加者さんが作ったフォームから実際にお申込みが多数届きました。</p>
 
   <section class="sec">
     <span class="badge">開催概要</span>
