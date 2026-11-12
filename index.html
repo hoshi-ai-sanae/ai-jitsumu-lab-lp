@@ -2,119 +2,415 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>AI実務ラボ｜申込フォーム＆自動返信メールをAIで作っちゃおう♪ 11/21(土) Zoom</title>
-<meta name="description" content="AI実務ラボ 11/21(土) 20:00〜21:30 Zoom開催。申込フォームと自動返信メールをAIで作ろう。初心者さんでも大丈夫！">
+<meta name="description" content="AI実務ラボ 11/21(土) 20:00〜21:30 Zoom開催。ChatGPTで申込フォームと自動返信メールをその場で一緒に作る実践ラボ。初心者さんでも大丈夫！">
 <meta property="og:type" content="website">
 <meta property="og:title" content="AI実務ラボ｜申込フォーム＆自動返信メールをAIで作っちゃおう♪">
 <meta property="og:description" content="11/21(土) 20:00〜21:30 Zoom開催。初心者さんでも大丈夫！">
 <meta property="og:url" content="https://hoshi-ai-sanae.github.io/ai-jitsumu-lab-lp/">
-<meta property="og:image" content="https://hoshi-ai-sanae.github.io/ai-jitsumu-lab-lp/images/banner.webp">
+<meta property="og:image" content="https://hoshi-ai-sanae.github.io/ai-jitsumu-lab-lp/images/hero.webp">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#fdeee9;
-    --wine:#7a1530;
-    --rose:#d4517a;
+    --bg:#fcefeb;
+    --card:#fff8f5;
+    --ink:#4a2326;
+    --body:#6b4a4a;
+    --crimson:#a8143a;
+    --rose1:#e0637f;
+    --rose2:#c4445e;
     --gold:#b8893a;
+    --line:#f0cfc8;
+    --line-gold:#f1d8a6;
+    --serif:"Shippori Mincho B1","Hiragino Mincho ProN","Yu Mincho",serif;
+    --sans:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Yu Gothic","Meiryo",sans-serif;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html{-webkit-text-size-adjust:100%}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
   body{
-    background:linear-gradient(180deg,#fdf0ec 0%,#fbe3e3 100%);
-    font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","Meiryo",sans-serif;
-    color:var(--wine);
-    line-height:1.6;
+    background:linear-gradient(180deg,#fdf1ed 0%,#fae3e2 100%);
+    font-family:var(--sans);
+    color:var(--body);
+    line-height:1.85;
+    font-size:15px;
   }
-  .wrap{max-width:560px;margin:0 auto;background:#fff7f4;box-shadow:0 0 30px rgba(180,100,110,.15)}
+  .wrap{max-width:560px;margin:0 auto;background:var(--bg);box-shadow:0 0 30px rgba(180,100,110,.15);padding-bottom:110px;overflow:hidden}
   img{display:block;width:100%;height:auto}
-  section{position:relative}
-  .cta{padding:20px 16px;text-align:center;background:#fff7f4}
-  .btn{
-    display:block;
-    width:100%;
-    padding:18px 12px;
-    border-radius:999px;
-    background:linear-gradient(135deg,#e0638a,#b8204f);
+  a{color:inherit}
+
+  /* hero */
+  .hero img{width:100%}
+
+  /* common */
+  .sec{padding:56px 20px 8px;text-align:center}
+  .badge{
+    display:inline-block;
+    padding:8px 26px;
+    border-radius:6px;
+    background:linear-gradient(180deg,var(--rose1),var(--rose2));
     color:#fff;
+    font-family:var(--serif);
     font-weight:700;
-    font-size:1.2rem;
-    text-decoration:none;
-    letter-spacing:.05em;
-    box-shadow:0 6px 16px rgba(184,32,79,.35);
-    border:2px solid #f3d6a2;
-    animation:pulse 2.2s ease-in-out infinite;
+    font-size:1rem;
+    letter-spacing:.12em;
+    box-shadow:0 8px 18px rgba(196,68,94,.28);
   }
-  .btn small{display:block;font-size:.8rem;font-weight:400;opacity:.9;margin-top:2px}
+  h2{
+    font-family:var(--serif);
+    font-weight:800;
+    color:var(--ink);
+    font-size:1.4rem;
+    line-height:1.55;
+    margin:22px 0 22px;
+  }
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:20px 20px;
+    text-align:left;
+  }
+
+  /* intro */
+  .intro{padding:34px 20px 8px;text-align:center}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:14px;
+    font-family:var(--serif);color:var(--gold);letter-spacing:.3em;font-size:.95rem;font-weight:500;
+  }
+  .eyebrow::before,.eyebrow::after{content:"";display:block;width:28px;height:1px;background:var(--line-gold)}
+  .intro h1{
+    font-family:var(--serif);font-weight:800;color:var(--ink);
+    font-size:1.6rem;line-height:1.5;margin:22px 0 18px;
+  }
+  .intro h1 em{font-style:normal;color:var(--crimson)}
+  .lead{color:var(--body);letter-spacing:.04em;text-align:left;font-size:.95rem}
+  .chips{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:24px}
+  .chip{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:10px 20px;border-radius:999px;
+    background:#fff;border:1px solid var(--line-gold);
+    color:var(--ink);font-weight:700;font-size:.95rem;
+    box-shadow:0 2px 6px rgba(184,137,58,.08);
+  }
+  .chip svg{width:18px;height:18px;stroke:var(--crimson);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+  /* CTA */
+  .cta{padding:30px 20px 0;text-align:center}
+  .btn{
+    display:inline-block;
+    min-width:240px;
+    padding:18px 40px;
+    border-radius:999px;
+    background:linear-gradient(180deg,#c42550,#8f0f33);
+    color:#fff;text-decoration:none;
+    font-weight:700;font-size:1.1rem;letter-spacing:.08em;
+    box-shadow:0 10px 22px rgba(143,15,51,.35);
+    transition:transform .15s;
+  }
   .btn:active{transform:translateY(2px)}
-  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
-  @media (prefers-reduced-motion:reduce){.btn{animation:none}}
-  .note{font-size:.8rem;margin-top:8px;color:#8a5a5a}
-  .sr{position:absolute;left:-9999px}
-  .qr-area{position:relative}
-  .qr-area a.qr-link{
-    position:absolute;
-    left:6%;top:48%;width:56%;height:44%;
-    display:block;
+  .btn.lg{display:block;width:100%;max-width:340px;margin:0 auto}
+  .deadline{margin-top:18px;font-size:.88rem;color:var(--body)}
+  .deadline b{color:var(--crimson);font-weight:700}
+  .deadline-note{margin-top:6px;font-size:.82rem;color:#8a6a68}
+
+  /* check list */
+  .checks{display:grid;gap:12px;margin-top:6px}
+  .check{
+    display:flex;gap:14px;align-items:flex-start;
+    background:#fffaf8;border:1px solid var(--line);border-radius:18px;
+    padding:18px 18px;text-align:left;color:var(--ink);
   }
-  footer{text-align:center;padding:20px 12px 100px;font-size:.75rem;color:#8a5a5a}
+  .check::before{content:"✓";color:var(--crimson);font-weight:700;flex:none;margin-top:1px}
+  .after{margin-top:22px;font-size:.92rem;text-align:center}
+  .after b{color:var(--crimson)}
+
+  .pills{display:grid;gap:12px}
+  .pill{
+    display:flex;align-items:center;gap:14px;
+    background:#fffaf8;border:1.5px solid var(--line-gold);border-radius:999px;
+    padding:14px 20px;text-align:left;font-weight:700;color:var(--ink);
+  }
+  .pill i{
+    flex:none;width:24px;height:24px;border:1.5px solid var(--crimson);border-radius:6px;background:#fff;
+    display:grid;place-items:center;color:var(--crimson);font-style:normal;font-size:.8rem;
+  }
+
+  .text{padding:22px 20px 0;text-align:left;font-size:.95rem}
+  .notes{display:grid;gap:12px;margin-top:20px}
+  .note{font-size:.92rem}
+  .note b{color:var(--crimson);font-weight:700}
+  .figure{padding:22px 20px 0}
+  .figure img{border-radius:18px;box-shadow:0 8px 24px rgba(180,100,110,.18)}
+  .caption{margin-top:10px;font-size:.78rem;text-align:center;color:#8a6a68}
+
+  /* voices */
+  .quotes{display:grid;gap:12px}
+  .quote{
+    background:#fffaf8;border:1.5px solid var(--line-gold);border-radius:999px;
+    padding:20px 30px;color:var(--ink);font-family:var(--serif);font-weight:700;font-size:.95rem;line-height:1.8;
+  }
+  .quote::before{content:"“";color:var(--crimson);margin-right:4px;font-size:1.2em}
+  .quote::after{content:"”";color:var(--crimson);margin-left:4px;font-size:1.2em}
+  .voice-text{margin-top:18px;text-align:center;font-size:.9rem}
+
+  /* overview */
+  dl.overview{margin:0}
+  .overview div{padding:16px 0;border-bottom:1px solid var(--line)}
+  .overview div:last-child{border-bottom:0;padding-bottom:4px}
+  .overview div:first-child{padding-top:4px}
+  .overview dt{font-family:var(--serif);font-weight:700;color:var(--crimson);font-size:.95rem;margin-bottom:4px}
+  .overview dd{color:var(--body);font-size:.93rem}
+  .overview dd strong{font-size:1.15rem;color:var(--ink)}
+  .overview dd small{display:block;margin-top:4px;color:#8a6a68;font-size:.82rem}
+
+  /* steps */
+  .steps{display:grid;gap:14px}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px 20px;text-align:center}
+  .num{
+    display:grid;place-items:center;width:38px;height:38px;margin:0 auto 10px;
+    border-radius:50%;background:var(--crimson);color:#fff;font-family:var(--serif);font-weight:700;
+  }
+  .step h3{font-family:var(--serif);font-weight:700;color:var(--ink);font-size:1rem;margin-bottom:6px}
+  .step p{font-size:.88rem}
+
+  /* about */
+  .about{padding:0}
+  .about-img{padding:14px 14px 0}
+  .about-img img{border-radius:14px}
+  .about-body{padding:20px 20px 24px;display:grid;gap:14px;font-size:.92rem}
+  .host{color:var(--ink);font-weight:500}
+
+  /* apply */
+  .pill-deadline{
+    display:inline-block;margin-bottom:22px;padding:10px 26px;border-radius:999px;
+    background:#f8c6c6;color:#8c1030;font-weight:700;font-size:.95rem;
+  }
+  .fine{margin-top:18px;font-size:.8rem;color:#8a6a68}
+  .qr-area{margin:34px 20px 0;position:relative}
+  .qr-area img{border-radius:18px;box-shadow:0 8px 24px rgba(180,100,110,.18)}
+  .qr-area a.qr-link{position:absolute;left:6%;top:48%;width:56%;height:44%;display:block}
+  .qr-note{margin-top:14px;text-align:center;font-size:.85rem}
+
+  footer{text-align:center;padding:46px 20px 20px;font-size:.85rem}
+  footer h3{font-family:var(--serif);font-weight:700;color:var(--ink);font-size:1rem;margin-bottom:14px}
+  footer p{margin-top:6px}
+
+  /* sticky */
   .sticky{
     position:fixed;left:0;right:0;bottom:0;z-index:10;
+    background:rgba(255,247,244,.96);
+    -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+    border-top:1px solid var(--line);
     padding:10px 16px calc(10px + env(safe-area-inset-bottom));
-    background:rgba(255,247,244,.95);
-    backdrop-filter:blur(6px);
-    -webkit-backdrop-filter:blur(6px);
-    border-top:1px solid #f0cfc8;
   }
-  .sticky .btn{max-width:520px;margin:0 auto;padding:14px 12px;font-size:1.05rem;animation:none}
+  .sticky-in{max-width:560px;margin:0 auto;display:flex;align-items:center;gap:12px}
+  .sticky-info{font-size:.72rem;line-height:1.4;color:var(--body);flex:none}
+  .sticky-info b{display:block;color:var(--crimson);font-size:.85rem}
+  .sticky .btn{flex:1;min-width:0;padding:14px 12px;font-size:1rem;text-align:center}
+
+  @media (min-width:420px){body{font-size:16px}.sec{padding-left:26px;padding-right:26px}}
+
+  /* tablet: 中央カラムを少し広げる */
+  @media (min-width:640px){
+    .wrap{max-width:680px}
+    .checks,.pills,.quotes{grid-template-columns:1fr 1fr}
+    .steps{grid-template-columns:repeat(3,1fr)}
+    .check{height:100%}
+  }
+
+  /* PC: 画面幅いっぱいに使うレイアウト */
+  @media (min-width:960px){
+    body{font-size:17px}
+    .wrap{max-width:1080px;padding-bottom:120px}
+    .intro{padding:56px 48px 8px}
+    .intro h1{font-size:2.5rem}
+    .lead{max-width:720px;margin:0 auto;text-align:center}
+    .chips{gap:14px;margin-top:30px}
+    .chip{font-size:1rem;padding:12px 24px}
+    .cta{padding-top:38px}
+    .btn{font-size:1.2rem;padding:20px 56px}
+    .sec{padding:80px 56px 8px}
+    h2{font-size:2rem;margin:26px 0 30px}
+    .badge{font-size:1.1rem;padding:10px 34px}
+    .checks,.pills,.quotes,.steps{max-width:900px;margin-left:auto;margin-right:auto;gap:18px}
+    .quote{padding:24px 36px}
+    .sec > .card{max-width:780px;margin:0 auto;padding:30px 40px}
+    .overview div{display:grid;grid-template-columns:140px 1fr;gap:20px;align-items:baseline}
+    .overview dt{margin-bottom:0}
+    .step{padding:30px 22px}
+    .text{max-width:780px;margin-left:auto;margin-right:auto;padding-top:34px}
+    .notes{grid-template-columns:1fr 1fr;gap:18px}
+    .figure{max-width:620px;margin:0 auto;padding-top:34px}
+    .voice-text{margin-top:24px}
+    .qr-area{max-width:520px;margin:44px auto 0}
+    .card.about{max-width:900px;display:grid;grid-template-columns:5fr 6fr;align-items:center;gap:8px;padding:22px}
+    .about-img{padding:0}
+    .about-body{padding:12px 18px 12px 12px}
+    .sticky-in{max-width:1080px;justify-content:center;gap:28px}
+    .sticky-info{font-size:.9rem}
+    .sticky-info b{display:inline;margin-left:10px;font-size:1rem}
+    .sticky .btn{flex:none;min-width:320px}
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1 class="sr">AI実務ラボ 申込フォーム＆自動返信メールをAIで作っちゃおう♪ 11月21日(土) 20:00〜21:30 Zoom開催</h1>
 
-  <section>
-    <img src="images/hero.webp" alt="AI実務ラボ 申込フォーム＆自動返信メールをAIで作っちゃおう♪ 11/21(土) 20:00〜21:30 Zoom開催" width="1086" height="1448">
+  <header class="hero">
+    <img src="images/hero.webp" alt="AI実務ラボ 申込フォーム＆自動返信メールをAIで作っちゃおう♪ 11/21(土) 20:00〜21:30 Zoom" width="2000" height="674">
+  </header>
+
+  <section class="intro">
+    <p class="eyebrow">AI 実務ラボ ・ 11月</p>
+    <h1>申込フォーム＆自動返信メールを<br><em>AI</em>で作っちゃおう♪</h1>
+    <p class="lead">ChatGPTを使って、自分の講座やセッションの「申込フォーム」と「自動返信メール」をその場で一緒に作る実践ラボ。 聞くだけで終わらず、仕事で使える形で持ち帰れます。</p>
+    <div class="chips">
+      <span class="chip"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg>11/21（土）</span>
+      <span class="chip"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>20:00〜21:30</span>
+      <span class="chip"><svg viewBox="0 0 24 24"><rect x="4.5" y="5.5" width="15" height="10" rx="1.5"/><path d="M2.5 19h19"/></svg>Zoom開催</span>
+      <span class="chip"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9.5 8.5 12 12l2.5-3.5M9.5 12h5M9.5 14.5h5M12 12v5"/></svg>参加費 3,300円（税込）</span>
+    </div>
   </section>
 
   <div class="cta">
-    <a class="btn" id="apply" href="https://docs.google.com/forms/d/e/1FAIpQLSdoQhMiy4eRVOnYARTdKANxG2BWiaw7i6EHRuOSyhMB3MShdQ/viewform?usp=header" target="_blank" rel="noopener">
-      お申込みはこちら
-      <small>11/21(土) 20:00〜21:30｜Zoom開催</small>
-    </a>
+    <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSdoQhMiy4eRVOnYARTdKANxG2BWiaw7i6EHRuOSyhMB3MShdQ/viewform?usp=header" target="_blank" rel="noopener">お申込みはこちら</a>
+    <p class="deadline">申込締切：<b>11月20日（金）</b><span id="remain"></span></p>
+    <p class="deadline-note">※11月は通常の毎月12日開催から、21日（土）に変更して開催します</p>
   </div>
 
-  <section>
+  <section class="sec">
+    <span class="badge">こんな方へ</span>
+    <h2>申込みのたびの手作業、<br>そろそろAIに任せませんか</h2>
+    <div class="checks">
+      <div class="check">講座やセッションの申込みを受けるたびに、返信メールを手作業で書いている</div>
+      <div class="check">申込フォームを作りたいけれど、何から始めればいいかわからない</div>
+      <div class="check">AIは気になるけれど、自分ひとりではなかなか進まない</div>
+      <div class="check">「作ってみたい」で終わらず、実際に使える形まで仕上げたい</div>
+    </div>
+    <p class="after">ひとつでも当てはまったら、このラボがぴったりです。<br><b>初心者さんでも大丈夫</b>です。</p>
+  </section>
+
+  <section class="sec">
+    <span class="badge">こんなことができる！</span>
+    <h2>AIで申込フォーム＆<br>自動返信メールをつくろう</h2>
+    <div class="pills">
+      <div class="pill"><i>✓</i>申込フォームをAIで作成</div>
+      <div class="pill"><i>✓</i>必要事項を入れるだけ</div>
+      <div class="pill"><i>✓</i>自動返信メールまで設定</div>
+      <div class="pill"><i>✓</i>初心者さんでも大丈夫</div>
+    </div>
+  </section>
+
+  <p class="text">当日は ChatGPT を使いながら、ご自身の講座・セッションに合わせた申込フォームを作成し、 申込みが入ったら自動で届く返信メールの設定まで進めます。 画面を見ながら一緒に手を動かすので、つまずいたところはその場で聞けます。</p>
+  <div class="text notes" style="padding-top:0">
+    <div class="card note"><b>安心のセキュリティ設計：</b> お支払い先の銀行口座など、大切な情報はAIに直接渡さない作り方で進めます。 AIに任せる部分と自分で扱う部分を分けるので、初めての方も安心して取り組めます。</div>
+    <div class="card note"><b>ChatGPTについて：</b> ChatGPTは無料版でも大丈夫です。作り方は当日ご案内します。有料版だと、さらにかんたんに作れます。</div>
+  </div>
+  <div class="figure">
     <img src="images/features.webp" alt="こんなことができる！ AIで申込フォーム＆自動返信メールをつくろう。申込フォームをAIで作成／必要事項を入れるだけ／自動返信メールまで設定／初心者さんでも大丈夫" loading="lazy" width="1122" height="1402">
-  </section>
-
-  <section>
-    <img src="images/voice.webp" alt="前回参加者さんの声：最初は戸惑ったけど、さなえさんとAIが何度も助けてくれました／おかげですごいのできた／一人だったら出来なかった／返信用習うの楽しみです。作ったフォームから実際にお申込み多数！" loading="lazy" width="1122" height="1402">
-  </section>
-
-  <div class="cta">
-    <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSdoQhMiy4eRVOnYARTdKANxG2BWiaw7i6EHRuOSyhMB3MShdQ/viewform?usp=header" target="_blank" rel="noopener">
-      今すぐ申し込む
-      <small>申込フォームが開きます</small>
-    </a>
   </div>
 
-  <section>
-    <img src="images/apply.webp" alt="お申込みはこちら 11/21(土) 20:00〜21:30 Zoom開催" loading="lazy" width="1122" height="1402">
+  <section class="sec">
+    <span class="badge">前回参加者さんの声</span>
+    <h2>実際にこんな声を<br>いただきました</h2>
+    <div class="quotes">
+      <p class="quote">最初は戸惑ったけど、さなえさんとAIが何度も助けてくれました</p>
+      <p class="quote">おかげですごいのできた</p>
+      <p class="quote">一人だったら出来なかった</p>
+      <p class="quote">返信用習うの楽しみです</p>
+    </div>
+  </section>
+  <div class="figure">
+    <img src="images/voice.webp" alt="前回参加者さんの声。講座の様子と、作ったフォームから実際にお申込み。実際にお申込み多数！" loading="lazy" width="1122" height="1402">
+    <p class="caption">前回の講座の様子と、作ったフォームから実際に届いたお申込み</p>
+  </div>
+  <p class="voice-text">前回は、参加者さんが作ったフォームから実際にお申込みが多数届きました。</p>
+
+  <section class="sec">
+    <span class="badge">開催概要</span>
+    <h2>11月のAI実務ラボ</h2>
+    <div class="card">
+      <dl class="overview">
+        <div><dt>テーマ</dt><dd>ChatGPTで、申込みフォーム作成＋自動返信メールまで作る</dd></div>
+        <div><dt>日時</dt><dd>2026年11月21日（土）20:00〜21:30<small>※11月は通常の毎月12日開催から変更しています</small></dd></div>
+        <div><dt>場所</dt><dd>Zoom（オンライン開催）</dd></div>
+        <div><dt>参加費</dt><dd><strong>3,300円</strong>（税込）／ 銀行振込</dd></div>
+        <div><dt>申込締切</dt><dd>2026年11月20日（金）</dd></div>
+        <div><dt>持ちもの</dt><dd>パソコン または スマホ（Zoomで画面を見ながら一緒に作業します。スマホだけでのご参加もOKです）</dd></div>
+      </dl>
+    </div>
   </section>
 
-  <div class="cta">
-    <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSdoQhMiy4eRVOnYARTdKANxG2BWiaw7i6EHRuOSyhMB3MShdQ/viewform?usp=header" target="_blank" rel="noopener">
-      申込フォームへ進む
-      <small>※ スマホではQRコードではなくこちらのボタンから</small>
-    </a>
-  </div>
+  <section class="sec">
+    <span class="badge">お申込みの流れ</span>
+    <h2>申込みから当日まで</h2>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><h3>フォームから申込み</h3><p>下のボタンから申込みフォームに必要事項をご入力ください。</p></div>
+      <div class="step"><div class="num">2</div><h3>お支払いのご案内</h3><p>申込み後、自動返信メールでお支払い（銀行振込）のご案内が届きます。</p></div>
+      <div class="step"><div class="num">3</div><h3>Zoom URLをお届け</h3><p>入金確認後、ZoomのURLを登録メールアドレスへお送りします。</p></div>
+    </div>
+  </section>
 
-  <footer>© AI実務ラボ</footer>
+  <section class="sec">
+    <span class="badge">AI実務ラボについて</span>
+    <h2>毎月12日開催の、<br>手を動かす実践の場</h2>
+    <div class="card about">
+      <div class="about-img">
+        <img src="images/about.webp" alt="AI実務ラボ 申込フォーム＆自動返信メールをAIで作っちゃおう♪ 11/21(土) 20:00〜21:30 Zoom開催" loading="lazy" width="1086" height="1448">
+      </div>
+      <div class="about-body">
+        <p>AI実務ラボは、AIを「知っている」で終わらせず、実際のお仕事に使える形まで一緒に作り上げる実践型の学びの場です。 Facebookグループでご案内し、毎月12日に開催しています（11月は告知・準備のため21日開催です）。</p>
+        <p>毎回のテーマはひとつだけ。その日のうちに自分のものとして持ち帰れることを大切にしています。 AIが初めての方も、途中で手が止まってしまった方も、少人数で一緒に進めるので安心してご参加ください。</p>
+        <p>参加希望の方は専用のFacebookメッセンジャーグループにご招待します。</p>
+        <p class="host">主催：坂井 佐奈重（Lumiere ～夜明けの光）</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="apply">
+    <span class="badge">お申込み</span>
+    <h2>一緒に、作っちゃおう♪</h2>
+    <span class="pill-deadline">申込締切：11月20日（金）</span>
+    <a class="btn lg" href="https://docs.google.com/forms/d/e/1FAIpQLSdoQhMiy4eRVOnYARTdKANxG2BWiaw7i6EHRuOSyhMB3MShdQ/viewform?usp=header" target="_blank" rel="noopener">申込みフォームを開く</a>
+    <p class="fine">11月21日（土）20:00〜21:30 ／ Zoom ／ 参加費 3,300円（税込）</p>
+  </section>
+
+  <div class="qr-area">
+    <img src="images/apply.webp" alt="お申込みはこちら。QRコードからお申込みください。11/21(土) 20:00〜21:30 Zoom開催" loading="lazy" width="1122" height="1402">
+    <a class="qr-link" href="https://docs.google.com/forms/d/e/1FAIpQLSdoQhMiy4eRVOnYARTdKANxG2BWiaw7i6EHRuOSyhMB3MShdQ/viewform?usp=header" target="_blank" rel="noopener" aria-label="申込みフォームを開く"></a>
+  </div>
+  <p class="qr-note">QRコードからもお申込みいただけます</p>
+
+  <footer>
+    <h3>AI実務ラボ</h3>
+    <p>主催：坂井 佐奈重（Lumiere ～夜明けの光）</p>
+    <p>お申込み後のご連絡は、登録メールアドレス宛にお送りします。</p>
+  </footer>
 </div>
 
 <div class="sticky">
-  <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSdoQhMiy4eRVOnYARTdKANxG2BWiaw7i6EHRuOSyhMB3MShdQ/viewform?usp=header" target="_blank" rel="noopener">お申込みはこちら</a>
+  <div class="sticky-in">
+    <div class="sticky-info">11/21（土）20:00〜<b>締切 11/20（金）</b></div>
+    <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSdoQhMiy4eRVOnYARTdKANxG2BWiaw7i6EHRuOSyhMB3MShdQ/viewform?usp=header" target="_blank" rel="noopener">お申込みはこちら</a>
+  </div>
 </div>
+
+<script>
+  // 締切までの残り日数（日本時間 2026-11-20 を基準）
+  (function(){
+    var el=document.getElementById('remain');
+    if(!el) return;
+    var now=new Date(Date.now()+9*3600*1000);
+    var today=Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate());
+    var days=Math.round((Date.UTC(2026,10,20)-today)/86400000);
+    if(days>0) el.textContent='（あと'+days+'日）';
+    else if(days===0) el.textContent='（本日締切）';
+    else el.textContent='（受付は終了しました）';
+  })();
+</script>
 </body>
 </html>
